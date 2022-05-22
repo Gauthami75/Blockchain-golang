@@ -14,6 +14,8 @@ type Block struct {
 	PrevHash  string
 }
 
+var Blockchain []Block
+
 func calculateHash(block Block) string {
 	record := string(block.Index) + block.Timestamp + string(block.BPM) + block.PrevHash
 	h := sha256.New()
@@ -51,4 +53,10 @@ func isBlockValid(newBlock, oldBlock Block) bool {
 	}
 
 	return true
+}
+
+func replaceChain(newBlocks []Block) {
+	if len(newBlocks) > len(Blockchain) {
+		Blockchain = newBlocks
+	}
 }
